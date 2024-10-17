@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /var/www/html
+
 # Выполнение миграций
 php artisan migrate
 
