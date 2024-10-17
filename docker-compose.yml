@@ -1,0 +1,22 @@
+services:
+  app:
+    image: php:8.2-fpm
+    container_name: laravel_app
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./docker/entrypoint.sh:/entrypoint.sh
+    ports:
+      - "8000:8000" # Порт для php artisan serve
+    entrypoint: sh /entrypoint.sh
+    depends_on:
+      - composer
+
+  composer:
+    image: composer:latest
+    container_name: laravel_composer
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: composer install
